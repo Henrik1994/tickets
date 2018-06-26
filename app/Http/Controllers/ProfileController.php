@@ -11,14 +11,19 @@ class ProfileController extends Controller
 {
     public function index()
     {
-        $user = User::with('profile')->get();
+        $my_id = \Auth::user()->id;
+        $user = User::with('profile')->find($my_id);
+
+        
+
         return view('profile', compact('user'));
     }
 
     public function addProfile(Request $request)
     {
+        $my_id = \Auth::user()->id;
         $alldata = [
-            'user_id' => $request['ages'],
+            'user_id' => $my_id,
             'firstName' => $request['firstName'],
             'lastName' => $request['lastName'],
             'adress' => $request['adress'],

@@ -72,51 +72,51 @@
                 <div class="card-body">
                   <form action="{{ url('/addProfile') }}" method="post" >
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                  <input type="hidden" name="ages" value="{{ Auth::user()->id }}">
+                
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-sm-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Fist Name</label>
-                          <input type="text" class="form-control" name="firstName" value= "{{ ($user[0]->profile->firstName)? $user[0]->profile->firstName: '' }}"  required>
+                          <input type="text" class="form-control" name="firstName" value= "{{ ($user['profile']['firstName'])? $user['profile']['firstName']: '' }}"  required>
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-sm-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Last Name</label>
-                          <input type="text" class="form-control" name="lastName" value= "{{ ($user[0]->profile->lastName)? $user[0]->profile->lastName: '' }}" required>
+                          <input type="text" class="form-control" name="lastName" value= "{{ ($user['profile']['lastName'])? $user['profile']['lastName']: '' }}" required>
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-sm-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Adress</label>
-                          <input type="text" class="form-control" name="adress" value= "{{ ($user[0]->profile->adress)? $user[0]->profile->adress: '' }}" required>
+                          <input type="text" class="form-control" name="adress" value= "{{ ($user['profile']['adress'])? $user['profile']['adress']: '' }}" required>
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-sm-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">City</label>
-                          <input type="text" class="form-control" name="city" value= "{{ ($user[0]->profile->city)? $user[0]->profile->city: '' }}" required>
+                          <input type="text" class="form-control" name="city" value= "{{ ($user['profile']['city'])? $user['profile']['city']: '' }}" required>
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-sm-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Country</label>
-                          <input type="text" class="form-control" name="country" value= "{{ ($user[0]->profile->country)? $user[0]->profile->country: '' }}" required />
+                          <input type="text" class="form-control" name="country" value= "{{ ($user['profile']['country'])? $user['profile']['country']: '' }}" required />
                         </div>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-sm-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Postal Code</label>
-                          <input type="text" class="form-control" name="postal" value= "{{ ($user[0]->profile->postal)? $user[0]->profile->postal: '' }}">
+                          <input type="text" class="form-control" name="postal" value= "{{ ($user['profile']['postal'])? $user['profile']['postal']: '' }}">
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-12">
+                      <div class="col-sm-12">
                         <div class="form-group">
                           <label>About Me</label>
                           <div class="form-group">
@@ -143,9 +143,9 @@
                 </div>
                 <div class="card-body">
                   <h6 class="card-category text-gray">Developer</h6>
-                  <h4 class="card-title">{{ ($user[0]->profile->firstName)? $user[0]->profile->firstName: '' }} {{ ($user[0]->profile->lastName)? $user[0]->profile->lastName: '' }} </h4>
+                  <h4 class="card-title">{{ ($user['profile']['firstName'])? $user['profile']['firstName']: '' }} {{ ($user['profile']['lastName'])? $user['profile']['lastName']: '' }} </h4>
                   <p class="card-description">
-                  {{ ($user[0]->profile->desc)? $user[0]->profile->desc: '' }}
+                  {{ ($user['profile']['desc'])? $user['profile']['desc']: '' }}
                   </p>
                 </div>
               </div>
