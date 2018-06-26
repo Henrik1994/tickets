@@ -20,7 +20,7 @@
             <ul class="navbar-nav">
               <li class="nav-item">
                 <a class="nav-link" href="#pablo">
-                  <i class="material-icons">dashboard</i>
+                  <i class="material-icons">email</i>
                   <p class="d-lg-none d-md-block">
                     Stats
                   </p>
@@ -57,9 +57,28 @@
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-    
+        <div class="row">
+        <div class="col-sm-4">
+        <ul class="nav">
+              <li class="nav-item">
+                <a class="nav-link active" href="#">Waiting</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Done</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Closed</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">All</a>
+              </li>
+            </ul>
+        </div>
+        </div>
           <div class="row">
             <div class="col-sm-4">
+      
+      
               <div class="card">
                 <div class="card-header card-header-tabs card-header-primary">
                   <div class="nav-tabs-navigation">
@@ -87,46 +106,36 @@
                               <p style="margin:0">Description</p>
                               <p style="margin:0">from</p>
                             </td>
-                      
-                            <td class="td-actions text-right pull-right">
-                            
+                            <td class="pull-right">
+                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">alarm_off</i>    20/06/2018</p>
+                              <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">lens</i>Hard</p><br>
+                              <p style="margin:0" class="pull-right"> <i class="material-icons" style="color:green">check_circle</i></p>
                             </td>
                           </tr>
                           <tr>
-                          <td>
-                               <span class="material-icons" style="color:orange">A</span>
-                          </td>
-                          <td><a href="#">info cpainferno</a></td>
-                          <td class="td-actions text-right pull-right">
-                            <button type="button" rel="tooltip" title="Add Task" class="btn btn-primary btn-link btn-sm">
-                              <i class="material-icons">add</i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>
-                               <span class="material-icons" style="color:blue">H</span>
-                          </td>
-                          <td><a href="#">create crud </a></td>
-                          <td class="td-actions text-right pull-right">
-                            <button type="button" rel="tooltip" title="Add Task" class="btn btn-primary btn-link btn-sm">
-                              <i class="material-icons">add</i>
-                            </button>
-                          </td>
-                        </tr>
-                        <tr>
-                          
-                          <td>
-                               <span class="material-icons" style="color:green">G</span>
-                          </td>
-                          <td><a href="#">inch kanes ara</a></td>
-                          <td class="td-actions text-right pull-right">
-                            <button type="button" rel="tooltip" title="Add Task" class="btn btn-primary btn-link btn-sm">
-                              <i class="material-icons">add</i>
-                            </button>
-                          </td>
-                        </tr>
-                    
+                            <td>
+                              <p style="margin:0"><a href="#">Title</a></p>
+                              <p style="margin:0">Description</p>
+                              <p style="margin:0">from</p>
+                            </td>
+                            <td class="pull-right">
+                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">alarm_on</i>    20/06/2018</p>
+                              <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">lens</i>Hard</p><br>
+                              <p style="margin:0" class="pull-right"> <i class="material-icons" style="color:green">check_circle</i></p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <p style="margin:0"><a href="#">Title</a></p>
+                              <p style="margin:0">Description</p>
+                              <p style="margin:0">from</p>
+                            </td>
+                            <td class="pull-right">
+                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">alarm</i>    20/06/2018</p>
+                              <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">lens</i>Hard</p><br>
+                              <p style="margin:0" class="pull-right"> <i class="material-icons" style="color:green">check_circle</i></p>
+                            </td>
+                          </tr>
                         </tbody>
                       </table>
                     </div>
@@ -261,17 +270,34 @@
                 <div class="card-body">
                   <form>
                   <div class="row">
-                  <div class="col-sm-4">
+                      <div class="col-sm-12">
+                      <div class="form-group">
+                        <h4 >Description</h4>
+                        </div>
+                     </div>
+                    </div>
+                  <div class="row" style="background-color: #eceeef;margin:0">
+                  <div class="col-sm-4" > 
                     <div class="card text-white bg-secondary mb-3" style="max-width: 18rem;">
                       <div class="card-body">
-                        <h5 class="card-title">Secondary card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <p class="card-text" style="font-size:15px">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
                       </div>
+                          <hr style="margin:0"/>
+                          <p class="text-right" style="margin-right: 10%;margin-bottom: 2% ">29/04/1994  15:30</p>
                     </div>
                   </div>
                   </div>
-                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
-                    <div class="clearfix"></div>
+                  <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Comment</label>
+                          <input type="text" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Send</button>
+                    <div class="clearfix">
+                  </div>
                   </form>
                 </div>
               </div>

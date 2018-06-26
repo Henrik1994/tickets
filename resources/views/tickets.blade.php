@@ -88,7 +88,7 @@
                             <td style="width:100%"><a href="#">Henrik Gevorgayn</a></td>
                             <td class="td-actions text-right pull-right">
                               <button type="button" rel="tooltip" title="Add Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">add</i>
+                                <i class=" material-icons" style="font-size:24px">add</i>
                               </button>
                             </td>
                           </tr>
@@ -99,7 +99,7 @@
                           <td><a href="#">info cpainferno</a></td>
                           <td class="td-actions text-right pull-right">
                             <button type="button" rel="tooltip" title="Add Task" class="btn btn-primary btn-link btn-sm">
-                              <i class="material-icons">add</i>
+                            <i class=" material-icons" style="font-size:24px">add</i>
                             </button>
                           </td>
                         </tr>
@@ -110,7 +110,7 @@
                           <td><a href="#">create crud </a></td>
                           <td class="td-actions text-right pull-right">
                             <button type="button" rel="tooltip" title="Add Task" class="btn btn-primary btn-link btn-sm">
-                              <i class="material-icons">add</i>
+                            <i class=" material-icons" style="font-size:24px">add</i>
                             </button>
                           </td>
                         </tr>
@@ -122,7 +122,7 @@
                           <td><a href="#">inch kanes ara</a></td>
                           <td class="td-actions text-right pull-right">
                             <button type="button" rel="tooltip" title="Add Task" class="btn btn-primary btn-link btn-sm">
-                              <i class="material-icons">add</i>
+                            <i class=" material-icons" style="font-size:24px">add</i>
                             </button>
                           </td>
                         </tr>
@@ -264,12 +264,14 @@
                   <div class="row">
                   <div class="col-sm-3">
                         <div class="form-group">
-                      `   <label class="radio">
-                              <input type="radio" name="optradio">Option 1
-                            </label>
-                            <label class="radio">
-                              <input type="radio" name="optradio">Option 2
-                            </label>
+                              <label>
+                                <input   name="group1" type="radio"  />
+                                <span>For Unique</span>
+                              </label>
+                              <label style="margin-left: 10%;">
+                                <input  name="group1" type="radio"  />
+                                <span>For All</span>
+                              </label>
                         </div>
                       </div>
                   </div>
@@ -327,7 +329,7 @@
                         </div>
                       </div>
                     </div>
-                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                    <button type="submit" class="btn btn-primary pull-right">Save</button>
                     <div class="clearfix"></div>
                   </form>
                 </div>

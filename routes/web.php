@@ -11,24 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
-Route::get('/tickets', function () {
-    return view('tickets');
-});
-Route::get('/inbox', function () {
-    return view('inbox');
-});
-Route::get('/sent', function () {
-    return view('sent');
-});
-Route::get('/profile', function () {
-    return view('profile');
-});
+Route::group([ 'middleware' => 'auth'], function () {
+    Route::get('/', "DashboardController@index");
+    Route::get('/tickets', "TicketsController@index");
+    Route::get('/inbox', "InboxController@index");
+    Route::get('/sent', "SentController@index");
 
 
+    Route::get('/profile', "ProfileController@index");
+    Route::post('/addProfile', "ProfileController@addProfile");
 
+  
+    Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
+});
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

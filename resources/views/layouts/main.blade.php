@@ -27,44 +27,7 @@
      Tickets
    </a>
  </div>
- <div class="sidebar-wrapper">
-   <ul class="nav">
-     <li class="nav-item active  ">
-       <a class="nav-link" href="{{ url('/')}}">
-         <i class="material-icons">dashboard</i>
-         <p>Dashboard</p>
-       </a>
-     </li>
-  
-     <li class="nav-item ">
-       <a class="nav-link" href="{{ url('/tickets')}}">
-         <i class="material-icons">content_paste</i>
-         <p>Add Tickets</p>
-       </a>
-     </li>
-     <li class="nav-item ">
-       <a class="nav-link" href="{{ url('/inbox')}}">
-         <i class="material-icons">library_books</i>
-         <p>Inbox</p>
-       </a>
-     </li>
-     <li class="nav-item ">
-       <a class="nav-link" href="{{ url('/sent')}}">
-         <i class="material-icons">bubble_chart</i>
-         <p>Sent</p>
-       </a>
-     </li>
 
-     <li class="nav-item ">
-       <a class="nav-link" href="{{ url('/profile')}}">
-         <i class="material-icons">person</i>
-         <p>User Profile</p>
-       </a>
-     </li>
-
-
- </div>
- 
 </div>
     @yield('content')
       <!--   Core JS Files   -->

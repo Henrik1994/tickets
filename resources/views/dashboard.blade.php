@@ -1,7 +1,6 @@
   @extends('layouts.app')
   @section('content')
   <div class="wrapper ">
-   
     <div class="main-panel">
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
@@ -42,13 +41,19 @@
                   <a class="dropdown-item" href="#">Another One</a>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
+
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="" id="person" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
+                  {{ Auth::user()->name }}
                   <p class="d-lg-none d-md-block">
-                    Account
+                    Some Actions
                   </p>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="person">
+                  <a class="dropdown-item" href="{{ url('/profile') }}">My  Profile</a>
+                  <a class="dropdown-item" href="{{ url('/logout') }}">Log Out</a>
+                </div>
               </li>
             </ul>
           </div>
