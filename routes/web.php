@@ -13,8 +13,20 @@
 
 Route::group([ 'middleware' => 'auth'], function () {
     Route::get('/', "DashboardController@index");
+
+
     Route::get('/tickets', "TicketsController@index");
+    Route::post('/addticket', "TicketsController@addticket");
+
+
     Route::get('/inbox', "InboxController@index");
+    Route::post('/addcomment', "InboxController@addcomment");
+    Route::post('/done', "InboxController@done");
+    Route::post('/witing', "InboxController@witing");
+    Route::post('/closed', "InboxController@closed");
+
+
+
     Route::get('/sent', "SentController@index");
 
 
@@ -26,3 +38,6 @@ Route::group([ 'middleware' => 'auth'], function () {
 
 });
 Auth::routes();
+$this->get('login', 'Auth\LoginController@showLoginForm')->name('login');
+$this->post('login', 'Auth\LoginController@login');
+$this->post('logout', 'Auth\LoginController@logout')->name('logout');

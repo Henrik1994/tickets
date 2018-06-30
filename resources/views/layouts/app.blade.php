@@ -17,6 +17,10 @@
   <link href=" {{ asset('/css/material-dashboard.css?v=2.1.0 ')}} "  rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="{{asset('/demo/demo.css')}}/" rel="stylesheet" />
+  <script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
 </head>
 
 <body>

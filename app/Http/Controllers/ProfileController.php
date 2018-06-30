@@ -14,13 +14,17 @@ class ProfileController extends Controller
         $my_id = \Auth::user()->id;
         $user = User::with('profile')->find($my_id);
 
-        
-
         return view('profile', compact('user'));
     }
 
     public function addProfile(Request $request)
     {
+
+        $destinationPath = 'img';
+        $file = $request->file('image');
+        $file->move($destinationPath, $file->getClientOriginalName());
+        $filename = $file->getClientOriginalName();
+
         $my_id = \Auth::user()->id;
         $alldata = [
             'user_id' => $my_id,
@@ -31,6 +35,7 @@ class ProfileController extends Controller
             'country' => $request['country'],
             'postal' => $request['postal'],
             'desc' => $request['desc'],
+            'image' => $filename,
         ];
 
 

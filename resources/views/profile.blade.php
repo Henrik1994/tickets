@@ -70,9 +70,9 @@
 
 
                 <div class="card-body">
-                  <form action="{{ url('/addProfile') }}" method="post" >
+                  <form action="{{ url('/addProfile') }}" method="post" enctype="multipart/form-data" >
                   <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                
+                  
                     <div class="row">
                       <div class="col-sm-6">
                         <div class="form-group">
@@ -88,10 +88,17 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-sm-12">
+                      <div class="col-sm-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Adress</label>
                           <input type="text" class="form-control" name="adress" value= "{{ ($user['profile']['adress'])? $user['profile']['adress']: '' }}" required>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="form-group">
+                        <label class="btn btn-default">
+                            Upload Photo <input type="file" name="image">
+                        </label>
                         </div>
                       </div>
                     </div>
@@ -138,7 +145,11 @@
               <div class="card card-profile">
                 <div class="card-avatar">
                   <a href="#pablo">
+                  <?php if(isset($user['profile']['image'])) {?>
+                    <img class="img" src="{{ asset('/img/'. $user['profile']['image'])}}" />
+                  <?php }else { ?>
                     <img class="img" src="{{ asset('/img/faces/marc.jpg')}}" />
+                  <?php } ?>
                   </a>
                 </div>
                 <div class="card-body">

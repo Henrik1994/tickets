@@ -1,5 +1,6 @@
 @extends('layouts.app')
   @section('content')
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <div class="wrapper ">
    
     <div class="main-panel">
@@ -42,13 +43,18 @@
                   <a class="dropdown-item" href="#">Another One</a>
                 </div>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#pablo">
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="" id="person" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">person</i>
+                  {{ Auth::user()->name }}
                   <p class="d-lg-none d-md-block">
-                    Account
+                    Some Actions
                   </p>
                 </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="person">
+                  <a class="dropdown-item" href="{{ url('/profile') }}">My  Profile</a>
+                  <a class="dropdown-item" href="{{ url('/logout') }}">Log Out</a>
+                </div>
               </li>
             </ul>
           </div>
@@ -59,27 +65,31 @@
         <div class="container-fluid">
         <div class="row">
         <div class="col-sm-4">
-        <ul class="nav">
-              <li class="nav-item">
-                <a class="nav-link active" href="#">Waiting</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Done</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Closed</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">All</a>
-              </li>
-            </ul>
+        <!-- Nav tabs -->
+        <ul class="nav " role="tablist">
+          <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#home">All</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu1">Witing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu2">Done</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#menu3">Closed</a>
+          </li>
+        </ul>
+
         </div>
         </div>
           <div class="row">
             <div class="col-sm-4">
-      
-      
-              <div class="card">
+             
+  <!-- Tab panes -->
+  <div class="tab-content">
+          <div id="home" class="container tab-pane active">
+            <div class="card">
                 <div class="card-header card-header-tabs card-header-primary">
                   <div class="nav-tabs-navigation">
                     <div class="nav-tabs-wrapper">
@@ -98,181 +108,276 @@
                 <div class="card-body">
                   <div class="tab-content">
                     <div class="tab-pane active" id="profile">
-                      <table class="table">
+                      <table class="table table-hover">
                         <tbody>
+                        @if($tickets)
+                        @foreach($tickets as $ticket)
                           <tr>
-                            <td>
-                              <p style="margin:0"><a href="#">Title</a></p>
-                              <p style="margin:0">Description</p>
-                              <p style="margin:0">from</p>
+                            <td class="mytd" data-id="{{ $ticket['id'] }}" data-title="{{ $ticket['title'] }}" data-desc1="{{ $ticket['desc1'] }}" data-user="{{ $ticket['user_id'] }}">
+                              <p style="margin:0"><a href="#">{{ $ticket['title'] }}</a></p>
+                              <p style="margin:0">{{ $ticket['desc1']}}</p>
+                              <p style="margin:0">{{ $ticket['creator_name'] }}</p>
                             </td>
                             <td class="pull-right">
-                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">alarm_off</i>    20/06/2018</p>
-                              <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">lens</i>Hard</p><br>
-                              <p style="margin:0" class="pull-right"> <i class="material-icons" style="color:green">check_circle</i></p>
+                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:blue; font-size:16px;margin-right: 4px">alarm</i>{{ $ticket['date'] }}</p>
+                              <?php if($ticket['priority'] == 'Medium') { ?>
+                              <p style="margin:0; color:blue" class="form-inline pull-right"><i class="material-icons" style="color:#1E90FF; font-size:16px;margin-right: 4px">lens</i>{{ $ticket['priority'] }}</p><br>
+                              <?php }else if($ticket['priority'] == 'Hard') { ?>
+                                <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:#FF4500; font-size:16px;margin-right: 4px">lens</i>{{ $ticket['priority'] }}</p><br>
+                              <?php }else if($ticket['priority'] == 'Easy') { ?>
+                                <p style="margin:0; color:green" class="form-inline pull-right"><i class="material-icons" style="color:#3CB371; font-size:16px;margin-right: 4px">lens</i>{{ $ticket['priority'] }}</p><br>
+                              <?php } ?>
+
+                              <p style="margin:0;cursor:pointer" class="pull-right closed"
+                                data-ticket="{{ $ticket['id'] }}" data-user="{{ $ticket['user_id'] }}"
+                                data-title="{{ $ticket['title'] }}" data-desc1="{{ $ticket['desc1'] }}"
+                                data-creator="{{ $ticket['creator_id'] }}" data-creatorname="{{ $ticket['creator_name'] }}" 
+                                data-name="{{ $ticket['name'] }}" data-date="{{ $ticket['date'] }}" data-desc2="{{ $ticket['desc2'] }}"  
+                                data-priority="{{ $ticket['priority'] }}" data-file="{{ $ticket['file'] }}"> 
+                                 <i class="material-icons" style="color:red">highlight_off</i>
+                              </p>
+
+                              <p style="margin:0;cursor:pointer" class="pull-right witing" 
+                                data-ticket="{{ $ticket['id'] }}" data-user="{{ $ticket['user_id'] }}"
+                                data-title="{{ $ticket['title'] }}" data-desc1="{{ $ticket['desc1'] }}"
+                                data-creator="{{ $ticket['creator_id'] }}" data-creatorname="{{ $ticket['creator_name'] }}" 
+                                data-name="{{ $ticket['name'] }}" data-date="{{ $ticket['date'] }}" data-desc2="{{ $ticket['desc2'] }}"  
+                                data-priority="{{ $ticket['priority'] }}" data-file="{{ $ticket['file'] }}"> 
+                                <i class="material-icons" style="color:blue">history</i>
+                              </p>
+
+                              <p style="margin:0;cursor:pointer" class="pull-right done"
+                                data-ticket="{{ $ticket['id'] }}" data-user="{{ $ticket['user_id'] }}"
+                                data-title="{{ $ticket['title'] }}" data-desc1="{{ $ticket['desc1'] }}"
+                                data-creator="{{ $ticket['creator_id'] }}" data-creatorname="{{ $ticket['creator_name'] }}" 
+                                data-name="{{ $ticket['name'] }}" data-date="{{ $ticket['date'] }}" data-desc2="{{ $ticket['desc2'] }}"  
+                                data-priority="{{ $ticket['priority'] }}" data-file="{{ $ticket['file'] }}" >
+                               <i class="material-icons" style="color:green">check_circle</i>
+                              </p>
+                            
                             </td>
                           </tr>
-                          <tr>
-                            <td>
-                              <p style="margin:0"><a href="#">Title</a></p>
-                              <p style="margin:0">Description</p>
-                              <p style="margin:0">from</p>
-                            </td>
-                            <td class="pull-right">
-                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">alarm_on</i>    20/06/2018</p>
-                              <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">lens</i>Hard</p><br>
-                              <p style="margin:0" class="pull-right"> <i class="material-icons" style="color:green">check_circle</i></p>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <p style="margin:0"><a href="#">Title</a></p>
-                              <p style="margin:0">Description</p>
-                              <p style="margin:0">from</p>
-                            </td>
-                            <td class="pull-right">
-                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">alarm</i>    20/06/2018</p>
-                              <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">lens</i>Hard</p><br>
-                              <p style="margin:0" class="pull-right"> <i class="material-icons" style="color:green">check_circle</i></p>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="tab-pane" id="messages">
-                      <table class="table">
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                            </td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="">
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="tab-pane" id="settings">
-                      <table class="table">
-                        <tbody>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="">
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                            </td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="form-check">
-                                <label class="form-check-label">
-                                  <input class="form-check-input" type="checkbox" value="" checked>
-                                  <span class="form-check-sign">
-                                    <span class="check"></span>
-                                  </span>
-                                </label>
-                              </div>
-                            </td>
-                            <td>Sign contract for "What are conference organizers afraid of?"</td>
-                            <td class="td-actions text-right">
-                              <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                                <i class="material-icons">edit</i>
-                              </button>
-                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                                <i class="material-icons">close</i>
-                              </button>
-                            </td>
-                          </tr>
+                        @endforeach
+                        @endif
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
               </div>
+          </div>
+          <div id="menu1" class="container tab-pane fade">
+            <div class="card">
+                <div class="card-header card-header-tabs card-header-primary">
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                    <form class="navbar-form">
+                      <div class="input-group no-border">
+                        <input type="text" value="" class="form-control" placeholder="Search...">
+                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                          <i class="material-icons">search</i>
+                          <div class="ripple-container"></div>
+                        </button>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="profile">
+                      <table class="table table-hover">
+                        <tbody>
+                        @if($witings)
+                         @foreach($witings as $witing)
+                         <tr>
+                            <td class="mytdwiting" data-id="{{ $witing['id'] }}" data-title="{{ $witing['title'] }}" data-desc1="{{ $witing['desc1'] }}" data-user="{{ $witing['user_id'] }}">
+                              <p style="margin:0"><a href="#">{{ $witing['title'] }}</a></p>
+                              <p style="margin:0">{{ $witing['desc1']}}</p>
+                              <p style="margin:0">{{ $witing['creator_name'] }}</p>
+                            </td>
+                            <td class="pull-right">
+                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:blue; font-size:16px;margin-right: 4px">alarm</i>{{ $witing['date'] }}</p>
+                              <?php if($witing['priority'] == 'Medium') { ?>
+                              <p style="margin:0; color:blue" class="form-inline pull-right"><i class="material-icons" style="color:#1E90FF; font-size:16px;margin-right: 4px">lens</i>{{ $witing['priority'] }}</p><br>
+                              <?php }else if($witing['priority'] == 'Hard') { ?>
+                                <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:#FF4500; font-size:16px;margin-right: 4px">lens</i>{{ $witing['priority'] }}</p><br>
+                              <?php }else if($witing['priority'] == 'Easy') { ?>
+                                <p style="margin:0; color:green" class="form-inline pull-right"><i class="material-icons" style="color:#3CB371; font-size:16px;margin-right: 4px">lens</i>{{ $witing['priority'] }}</p><br>
+                              <?php } ?>
+
+                              <p style="margin:0;cursor:pointer" class="pull-right"> 
+                                 <i class="material-icons" style="color:red">highlight_off</i>
+                              </p>
+
+                              <p style="margin:0;cursor:pointer" class="pull-right done"
+                                data-ticket="{{ $witing['id'] }}" data-user="{{ $witing['user_id'] }}"
+                                data-title="{{ $witing['title'] }}" data-desc1="{{ $witing['desc1'] }}"
+                                data-creator="{{ $witing['creator_id'] }}" data-creatorname="{{ $witing['creator_name'] }}" 
+                                data-name="{{ $witing['name'] }}" data-date="{{ $witing['date'] }}" data-desc2="{{ $witing['desc2'] }}"  
+                                data-priority="{{ $witing['priority'] }}" data-file="{{ $witing['file'] }}" >
+                               <i class="material-icons" style="color:green">check_circle</i>
+                              </p>
+                            
+                            </td>
+                          </tr>
+                         @endforeach
+                         @endif
+                       
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div id="menu2" class="container tab-pane fade">
+            <div class="card">
+                <div class="card-header card-header-tabs card-header-primary">
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                    <form class="navbar-form">
+                      <div class="input-group no-border">
+                        <input type="text" value="" class="form-control" placeholder="Search...">
+                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                          <i class="material-icons">search</i>
+                          <div class="ripple-container"></div>
+                        </button>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="profile">
+                      <table class="table table-hover">
+                        <tbody>
+                        @if($dones)
+                        @foreach($dones as $done)
+                        <tr>
+                            <td class="mytdone" data-id="{{ $done['id'] }}" data-title="{{ $done['title'] }}" data-desc1="{{ $done['desc1'] }}" data-user="{{ $done['user_id'] }}">
+                              <p style="margin:0"><a href="#">{{ $done['title'] }}</a></p>
+                              <p style="margin:0">{{ $done['desc1']}}</p>
+                              <p style="margin:0">{{ $done['creator_name'] }}</p>
+                            </td>
+                            <td class="pull-right">
+                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:green; font-size:16px;margin-right: 4px">alarm_on</i>{{ $done['date'] }}</p>
+                              <?php if($done['priority'] == 'Medium') { ?>
+                              <p style="margin:0; color:blue" class="form-inline pull-right"><i class="material-icons" style="color:#1E90FF; font-size:16px;margin-right: 4px">lens</i>{{ $done['priority'] }}</p><br>
+                              <?php }else if($done['priority'] == 'Hard') { ?>
+                                <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:#FF4500; font-size:16px;margin-right: 4px">lens</i>{{ $done['priority'] }}</p><br>
+                              <?php }else if($done['priority'] == 'Easy') { ?>
+                                <p style="margin:0; color:green" class="form-inline pull-right"><i class="material-icons" style="color:#3CB371; font-size:16px;margin-right: 4px">lens</i>{{ $done['priority'] }}</p><br>
+                              <?php } ?>
+
+         
+                              <!-- <p> {{ Date($done['created_at']) }}</p> -->
+                          
+
+                              <p style="margin:0;cursor:pointer" class="pull-right done form-inline">
+                               <i class="material-icons" style="color:green;margin-right: 4px;font-size:18px">check_circle</i>
+                               2018-06-27
+                              </p>
+                         
+                            
+                            </td>
+                          </tr>
+                        @endforeach
+                        @endif
+                        </tbody>
+                      </table>
+                    </div>
+                 
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div id="menu3" class="container tab-pane fade">
+            <div class="card">
+                <div class="card-header card-header-tabs card-header-primary">
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                    <form class="navbar-form">
+                      <div class="input-group no-border">
+                        <input type="text" value="" class="form-control" placeholder="Search...">
+                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                          <i class="material-icons">search</i>
+                          <div class="ripple-container"></div>
+                        </button>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="profile">
+                      <table class="table table-hover">
+                        <tbody>
+                        @if($closeds)
+                        @foreach($closeds as $closed)
+                          <tr>
+                            <td class="mytdclosed" data-id="{{ $closed['id'] }}" data-title="{{ $closed['title'] }}" data-desc1="{{ $closed['desc1'] }}" data-user="{{ $closed['user_id'] }}">
+                              <p style="margin:0"><a href="#">{{ $closed['title'] }}</a></p>
+                              <p style="margin:0">{{ $closed['desc1']}}</p>
+                              <p style="margin:0">{{ $closed['creator_name'] }}</p>
+                            </td>
+                            <td class="pull-right">
+                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">alarm_off</i>{{ $closed['date'] }}</p>
+                              <?php if($closed['priority'] == 'Medium') { ?>
+                              <p style="margin:0; color:blue" class="form-inline pull-right"><i class="material-icons" style="color:#1E90FF; font-size:16px;margin-right: 4px">lens</i>{{ $closed['priority'] }}</p><br>
+                              <?php }else if($closed['priority'] == 'Hard') { ?>
+                                <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:#FF4500; font-size:16px;margin-right: 4px">lens</i>{{ $closed['priority'] }}</p><br>
+                              <?php }else if($closed['priority'] == 'Easy') { ?>
+                                <p style="margin:0; color:green" class="form-inline pull-right"><i class="material-icons" style="color:#3CB371; font-size:16px;margin-right: 4px">lens</i>{{ $closed['priority'] }}</p><br>
+                              <?php } ?>
+
+
+                              <p style="margin:0;cursor:pointer" class="pull-right witing" 
+                                data-ticket="{{ $closed['id'] }}" data-user="{{ $closed['user_id'] }}"
+                                data-title="{{ $closed['title'] }}" data-desc1="{{ $closed['desc1'] }}"
+                                data-creator="{{ $closed['creator_id'] }}" data-creatorname="{{ $closed['creator_name'] }}" 
+                                data-name="{{ $closed['name'] }}" data-date="{{ $closed['date'] }}" data-desc2="{{ $closed['desc2'] }}"  
+                                data-priority="{{ $closed['priority'] }}" data-file="{{ $closed['file'] }}"> 
+                                <i class="material-icons" style="color:blue">history</i>
+                              </p>
+
+                              <p style="margin:0;cursor:pointer" class="pull-right done"
+                                data-ticket="{{ $closed['id'] }}" data-user="{{ $closed['user_id'] }}"
+                                data-title="{{ $closed['title'] }}" data-desc1="{{ $closed['desc1'] }}"
+                                data-creator="{{ $closed['creator_id'] }}" data-creatorname="{{ $closed['creator_name'] }}" 
+                                data-name="{{ $closed['name'] }}" data-date="{{ $closed['date'] }}" data-desc2="{{ $closed['desc2'] }}"  
+                                data-priority="{{ $closed['priority'] }}" data-file="{{ $closed['file'] }}" >
+                               <i class="material-icons" style="color:green">check_circle</i>
+                              </p>
+                            
+                            </td>
+                          </tr>
+                        @endforeach
+                        @endif
+                         
+                        </tbody>
+                      </table>
+                    </div>
+                 
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
             </div>
             <div class="col-sm-8">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Title</h4>
+                  <h4 class="card-title imtitle" >Title</h4>
                 </div>
                 <div class="card-body">
-                  <form>
+                 
                   <div class="row">
                       <div class="col-sm-12">
                       <div class="form-group">
-                        <h4 >Description</h4>
+                        <h4 class="imdesc1">Description</h4>
                         </div>
                      </div>
                     </div>
@@ -287,60 +392,201 @@
                     </div>
                   </div>
                   </div>
-                  <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Comment</label>
-                          <input type="text" class="form-control">
+                  <form action="{{ url('/addcomment')}}" method="post">
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    <input type="hidden" name="user_id" id="user_id" value="">
+                    <input type="hidden" name="ticket_id" id="ticket_id" value="">
+                    <div class="row">
+                        <div class="col-sm-12">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Comment</label>
+                            <input type="text" class="form-control" name="comment">
+                          </div>
                         </div>
                       </div>
+                      <button type="submit" class="btn btn-primary pull-right">Send</button>
+                      <div class="clearfix">
                     </div>
-                    <button type="submit" class="btn btn-primary pull-right">Send</button>
-                    <div class="clearfix">
-                  </div>
                   </form>
                 </div>
               </div>
+
             </div>
           </div>
         </div>
       </div>
-      <footer class="footer">
+  <footer class="footer">
         <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
+        
           <div class="copyright float-right">
             &copy;
             <script>
               document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+            </script>, made with <i class="material-icons">favorite</i>
           </div>
         </div>
       </footer>
     </div>
   </div>
+
+     <script>
+        var title = $('.mytd').data('title');
+        var desc1 = $('.mytd').data('desc1');
+
+          $('.imtitle').text(title);
+          $('.imdesc1').text(desc1);
+
+         $('.mytd').click(function(){
+          var ticket_id = $(this).data('id');
+          var user_id = $(this).data('user');
+          var title = $(this).data('title');
+          var desc1 = $(this).data('desc1');
+
+          $('#ticket_id').val(ticket_id);
+          $('#user_id').val(user_id);
+          $('.imtitle').text(title);
+          $('.imdesc1').text(desc1);
+          
+          
+        });
+        $('.mytdone').click(function(){
+          var ticket_id = $(this).data('id');
+          var user_id = $(this).data('user');
+          var title = $(this).data('title');
+          var desc1 = $(this).data('desc1');
+
+          $('#ticket_id').val(ticket_id);
+          $('#user_id').val(user_id);
+          $('.imtitle').text(title);
+          $('.imdesc1').text(desc1);
+          
+          
+        });
+        $('.mytdwiting').click(function(){
+          var ticket_id = $(this).data('id');
+          var user_id = $(this).data('user');
+          var title = $(this).data('title');
+          var desc1 = $(this).data('desc1');
+
+          $('#ticket_id').val(ticket_id);
+          $('#user_id').val(user_id);
+          $('.imtitle').text(title);
+          $('.imdesc1').text(desc1);
+          
+          
+        });
+        $('.mytdclosed').click(function(){
+          var ticket_id = $(this).data('id');
+          var user_id = $(this).data('user');
+          var title = $(this).data('title');
+          var desc1 = $(this).data('desc1');
+
+          $('#ticket_id').val(ticket_id);
+          $('#user_id').val(user_id);
+          $('.imtitle').text(title);
+          $('.imdesc1').text(desc1);
+          
+          
+        });
+
+           $('.done').click(function(){
+            var ticket_id = $(this).data('ticket');
+            var user_id = $(this).data('user');
+            var creator_id = $(this).data('creator');
+            var creator_name = $(this).data('creatorname');
+            var name = $(this).data('name'); 
+            var title = $(this).data('title');
+            var date = $(this).data('date'); 
+            var priority = $(this).data('priority'); 
+            var desc1 = $(this).data('desc1');
+            var desc2 = $(this).data('desc2');
+            var file = $(this).data('file'); 
+            
+                $.ajax({
+                    /* the route pointing to the post function */
+                    url: '/done',
+                    type: 'POST',
+                    headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                    /* send the csrf-token and the input to the controller */
+                    data: { ticket_id: ticket_id, user_id: user_id, creator_id: creator_id, creator_name: creator_name, name: name, title: title, date: date, priority: priority, desc1: desc1, desc2: desc2, file: file  },
+                    dataType: 'JSON',
+                    /* remind that 'data' is the response of the AjaxController */
+                    success: function (response) { 
+                      demo.showNotification('top','center',)
+                      setTimeout(() => {
+                        window.location.assign('/inbox');
+                      }, 2000);
+                    }
+                }); 
+          });
+
+          $('.witing').click(function(){
+            var ticket_id = $(this).data('ticket');
+            var user_id = $(this).data('user');
+            var creator_id = $(this).data('creator');
+            var creator_name = $(this).data('creatorname');
+            var name = $(this).data('name'); 
+            var title = $(this).data('title');
+            var date = $(this).data('date'); 
+            var priority = $(this).data('priority'); 
+            var desc1 = $(this).data('desc1');
+            var desc2 = $(this).data('desc2');
+            var file = $(this).data('file');
+            
+                $.ajax({
+                    /* the route pointing to the post function */
+                    url: '/witing',
+                    type: 'POST',
+                    headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                    /* send the csrf-token and the input to the controller */
+                    data: { ticket_id: ticket_id, user_id: user_id, creator_id: creator_id, creator_name: creator_name, name: name, title: title, date: date, priority: priority, desc1: desc1, desc2: desc2, file: file  },
+                    dataType: 'JSON',
+                    /* remind that 'data' is the response of the AjaxController */
+                    success: function (response) { 
+                      demo.showNotification('top','center',)
+                      setTimeout(() => {
+                        window.location.assign('/inbox');
+                      }, 2000);
+                    }
+                }); 
+          });    
+          $('.closed').click(function(){
+            var ticket_id = $(this).data('ticket');
+            var user_id = $(this).data('user');
+            var creator_id = $(this).data('creator');
+            var creator_name = $(this).data('creatorname');
+            var name = $(this).data('name'); 
+            var title = $(this).data('title');
+            var date = $(this).data('date'); 
+            var priority = $(this).data('priority'); 
+            var desc1 = $(this).data('desc1');
+            var desc2 = $(this).data('desc2');
+            var file = $(this).data('file');
+
+                $.ajax({
+                    /* the route pointing to the post function */
+                    url: '/closed',
+                    type: 'POST',
+                    headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                    /* send the csrf-token and the input to the controller */
+                    data: { ticket_id: ticket_id, user_id: user_id, creator_id: creator_id, creator_name: creator_name, name: name, title: title, date: date, priority: priority, desc1: desc1, desc2: desc2, file: file  },
+                    dataType: 'JSON',
+                    /* remind that 'data' is the response of the AjaxController */
+                    success: function (response) { 
+                      demo.showNotification('top','center',)
+                      setTimeout(() => {
+                        window.location.assign('/inbox');
+                      }, 2000);
+                    }
+                }); 
+          });     
+
+     </script>
 
 @endsection
