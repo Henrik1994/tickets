@@ -55,6 +55,7 @@ class InboxController extends Controller
         $delTicket = Ticket::find($request['ticket_id']);
         $delTicket->delete();
 
+
         $response = array(
             'status' => 'success',
             'msg' => "Thenk you bro",
