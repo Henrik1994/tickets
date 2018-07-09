@@ -27,17 +27,19 @@
               <li class="nav-item dropdown">
                 <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i class="material-icons">notifications</i>
-                  <span class="notification">5</span>
+                  @isset($myticket)
+                  <span class="notification">{{ count($myticket) }}</span>
+                  @endisset
                   <p class="d-lg-none d-md-block">
                     Some Actions
                   </p>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="#">Mike John responded to your email</a>
-                  <a class="dropdown-item" href="#">You have 5 new tasks</a>
-                  <a class="dropdown-item" href="#">You're now friend with Andrew</a>
-                  <a class="dropdown-item" href="#">Another Notification</a>
-                  <a class="dropdown-item" href="#">Another One</a>
+                @isset($myticket)
+                  @foreach($myticket as $ticket)
+                     <a class="dropdown-item" href="{{ url('/inbox') }}">{{ $ticket['title'] }}</a>
+                  @endforeach
+                @endisset
                 </div>
               </li>
               <li class="nav-item dropdown">

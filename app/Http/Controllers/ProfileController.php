@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Profile;
 use App\User;
 use App\Auth;
+use App\Ticket;
 
 class ProfileController extends Controller
 {
@@ -14,16 +15,34 @@ class ProfileController extends Controller
         $my_id = \Auth::user()->id;
         $user = User::with('profile')->find($my_id);
 
-        return view('profile', compact('user'));
+        $all_tickets = Ticket::all();
+
+        foreach($all_tickets as $ticket){
+            $cat = explode(',', $ticket['user_id']);
+            for($i = 0; $i < count($cat); $i++){
+                if($cat[$i] == $my_id){
+                  $tickets[] = $ticket; 
+                  if($ticket['role'] == 1){
+                    $myticket[] = $ticket;
+                }  
+                }
+            }
+        }
+
+        return view('profile', compact('user','tickets','myticket'));
     }
 
     public function addProfile(Request $request)
     {
-
-        $destinationPath = 'img';
-        $file = $request->file('image');
-        $file->move($destinationPath, $file->getClientOriginalName());
-        $filename = $file->getClientOriginalName();
+        if(isset($request['file'])){
+            $destinationPath = 'img';
+            $file = $request->file('image');
+            $file->move($destinationPath, $file->getClientOriginalName());
+            $filename = $file->getClientOriginalName();
+        }else{
+            $filename = '';
+        }
+     
 
         $my_id = \Auth::user()->id;
         $alldata = [
@@ -33,7 +52,7 @@ class ProfileController extends Controller
             'adress' => $request['adress'],
             'city' => $request['adress'],
             'country' => $request['country'],
-            'postal' => $request['postal'],
+            'phone' => $request['postal'],
             'desc' => $request['desc'],
             'image' => $filename,
         ];

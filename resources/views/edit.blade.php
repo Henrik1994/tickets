@@ -7,7 +7,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">Add Tickets</a>
+            <a class="navbar-brand" href="#pablo">Edit Ticket for {{ $editticket['name']}} </a>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -87,6 +87,7 @@
                 <div class="tab-pane active" id="profile">
                   <table class="table">
                     <tbody>
+                    @isset($users)
                     @foreach($users as $user)
                    
                       <tr>
@@ -106,126 +107,8 @@
                         </td>
                       </tr>
                       @endforeach
+                      @endisset
       
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tab-pane" id="messages">
-                  <table class="table">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="" checked>
-                              <span class="form-check-sign">
-                                <span class="check"></span>
-                              </span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                        </td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                            <i class="material-icons">edit</i>
-                          </button>
-                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                            <i class="material-icons">close</i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="">
-                              <span class="form-check-sign">
-                                <span class="check"></span>
-                              </span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Sign contract for "What are conference organizers afraid of?"</td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                            <i class="material-icons">edit</i>
-                          </button>
-                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                            <i class="material-icons">close</i>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tab-pane" id="settings">
-                  <table class="table">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="">
-                              <span class="form-check-sign">
-                                <span class="check"></span>
-                              </span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" tit/usr/share/phpmyadmin/libraries/sql.lib.phple="Edit Task" class="btn btn-primary btn-link btn-sm">
-                            <i class="material-icons">edit</i>/usr/share/phpmyadmin/libraries/sql.lib.php
-                          </button>/usr/share/phpmyadmin/libraries/sql.lib.php
-                          <button type="button" rel="tooltip" tit/usr/share/phpmyadmin/libraries/sql.lib.phple="Remove" class="btn btn-danger btn-link btn-sm">
-                            <i class="material-icons">close</i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="" checked>
-                              <span class="form-check-sign">
-                                <span class="check"></span>
-                              </span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-                        </td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                            <i class="material-icons">edit</i>
-                          </button>
-                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                            <i class="material-icons">close</i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="form-check">
-                            <label class="form-check-label">
-                              <input class="form-check-input" type="checkbox" value="" checked>
-                              <span class="form-check-sign">
-                                <span class="check"></span>
-                              </span>
-                            </label>
-                          </div>
-                        </td>
-                        <td>Sign contract for "What are conference organizers afraid of?"</td>
-                        <td class="td-actions text-right">
-                          <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
-                            <i class="material-icons">edit</i>
-                          </button>
-                          <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
-                            <i class="material-icons">close</i>
-                          </button>
-                        </td>
-                      </tr>
                     </tbody>
                   </table>
                 </div>
@@ -248,29 +131,28 @@
              
             </div>
             <div class="card-body">
-
-
-              <form action="{{ url('/addticket')}}" method="post" enctype="multipart/form-data" >
-              <input type="hidden" name="_token" value="{{ csrf_token() }}">
-              <input type="hidden" name="user_id" id="user_id"  />
-              <input type="hidden" name="name" id="user"  />
+              <form action="{{ url('/updatetiket')}}" method="post" enctype="multipart/form-data" >
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="user_id" id="user_id"  />
+                <input type="hidden" name="name" id="user"  />
+                <input type="hidden" name="ticket_id" value="{{ $editticket['id'] }}"  />
                 <div class="row">
                   <div class="col-sm-3">
                     <div class="form-group">
                       <label class="bmd-label-floating">Title</label>
-                      <input type="text" class="form-control" name="title">
+                      <input type="text" class="form-control" name="title" value="{{ ($editticket['title'])? $editticket['title'] : '' }}">
                     </div>
                   </div>
                   <div class="col-sm-4">
                     <div class="form-group">
                       <label class="bmd-label-floating"></label>
-                      <input type="date" class="form-control" name="date">
+                      <input type="date" class="form-control" name="date" value="{{ ($editticket['date'])? $editticket['date'] : '' }}">
                     </div>
                   </div>
                   <div class="col-sm-3">
                     <div class="form-group" style="margin:0">
                     <label class="bmd-label-floating"></label>
-                      <select class="form-control" name="priority">
+                      <select class="form-control" name="priority" value="{{ ($editticket['priority'])? $editticket['priority'] : '' }}">
                           <option>Hard</option>
                           <option>Medium</option>
                           <option>Easy</option>
@@ -283,7 +165,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label class="bmd-label-floating">Description 1</label>
-                      <input type="text" class="form-control" name="desc1">
+                      <input type="text" class="form-control" name="desc1" value="{{ ($editticket['desc1'])? $editticket['desc1'] : '' }}">
                     </div>
                   </div>
                 </div>
@@ -336,8 +218,8 @@
 
       $('.plus').on('click', function(event){
           var res = $(this).closest('tr').find('.user').text();
-
           var user_id = $(this).data('id');
+          var ticket_id = $(this).data('');
 
           if($('#user').val()){
                 var performer = $('#user').val() +',';

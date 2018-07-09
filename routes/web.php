@@ -17,6 +17,8 @@ Route::group([ 'middleware' => 'auth'], function () {
 
     Route::get('/tickets', "TicketsController@index");
     Route::post('/addticket', "TicketsController@addticket");
+    Route::get('/edit/{id}', "TicketsController@edit");
+    Route::post('/updatetiket', "TicketsController@update");
 
 
     Route::get('/inbox', "InboxController@index");
@@ -24,6 +26,9 @@ Route::group([ 'middleware' => 'auth'], function () {
     Route::post('/done', "InboxController@done");
     Route::post('/witing', "InboxController@witing");
     Route::post('/closed', "InboxController@closed");
+    Route::post('/end', "InboxController@end");
+    Route::post('/cant', "InboxController@cant");
+    Route::get('/getcomment', "InboxController@getcomment");
 
 
 

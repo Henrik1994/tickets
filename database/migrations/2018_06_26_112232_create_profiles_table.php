@@ -21,7 +21,7 @@ class CreateProfilesTable extends Migration
             $table->string('adress');
             $table->string('city');
             $table->string('country');
-            $table->string('postal');
+            $table->string('phone');
             $table->text('desc');
             $table->string('image')->nullable();
             $table->timestamps();
