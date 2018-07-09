@@ -67,10 +67,16 @@
         <div class="container-fluid">
         <div class="row">
         <div class="col-sm-4">
-   <!-- Nav tabs -->
-        <ul class="nav " role="tablist">  
+
+        <ul class="nav " role="tablist">
           <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#">Closed</a>
+            <a class="nav-link active" data-toggle="tab" href="#all">All</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#cant">Can't</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#closed">Closed</a>
           </li>
         </ul>
 
@@ -78,7 +84,10 @@
         </div>
           <div class="row">
             <div class="col-sm-4">
-            <div class="card">
+              <!-- Tab panes -->
+      <div class="tab-content">
+          <div id="all" class="container tab-pane active">
+          <div class="card">
                 <div class="card-header card-header-tabs card-header-primary">
                   <div class="nav-tabs-navigation">
                     <div class="nav-tabs-wrapper">
@@ -104,7 +113,7 @@
                           @if($sent['role'] != 6 && $sent['role'] != 5 )
                          
                         <tr style="cursor:pointer">
-                            <td class="mytd" data-id="{{ $sent['id'] }}" data-title="{{ $sent['title'] }}" data-desc1="{{ $sent['desc1'] }}" data-name="{{ $sent['name'] }}" data-user="{{ $ticket['user_id'] }}" >
+                            <td class="mytd" data-id="{{ $sent['id'] }}" data-title="{{ $sent['title'] }}" data-desc1="{{ $sent['desc1'] }}" data-name="{{ $sent['name'] }}" data-user="{{ $sent['user_id'] }}" >
                               <p style="margin:0"><a href="#">{{  (strlen($sent['title']) > 11)? substr($sent['title'],0,11).".." : $sent['title']}}</a></p>
                               <p style="margin:0">{{ (strlen($sent['desc1']) > 17)? substr($sent['desc1'],0,17).".." : $sent['desc1']}}</p>
                               <p style="margin:0">{{ $sent['creator_name'] }}</p>
@@ -153,8 +162,8 @@
                               <p style="margin:0;cursor:pointer" class="pull-right admindone"
                                 data-ticket="{{ $sent['id'] }}" data-user="{{ $sent['user_id'] }}"
                                 data-title="{{ $sent['title'] }}" data-desc1="{{ $sent['desc1'] }}"
-                                data-creator="{{ $sent['creator_id'] }}" data-creatorname="{{ $ticket['creator_name'] }}" 
-                                data-name="{{ $sent['name'] }}" data-date="{{ $sent['date'] }}" data-desc2="{{ $ticket['desc2'] }}"  
+                                data-creator="{{ $sent['creator_id'] }}" data-creatorname="{{ $sent['creator_name'] }}" 
+                                data-name="{{ $sent['name'] }}" data-date="{{ $sent['date'] }}" data-desc2="{{ $sent['desc2'] }}"  
                                 data-priority="{{ $sent['priority'] }}" data-file="{{ $sent['file'] }}" >
                                <i class="material-icons" style="color:green">check_circle</i>
                               </p>
@@ -172,8 +181,132 @@
                  
                   </div>
                 </div>
+              </div> 
+          </div>
+          <div id="cant" class="container tab-pane fade">
+            <div class="card">
+                <div class="card-header card-header-tabs card-header-primary">
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                    <form class="navbar-form">
+                      <div class="input-group no-border">
+                        <input type="text" value="" class="form-control" placeholder="Search...">
+                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                          <i class="material-icons">search</i>
+                          <div class="ripple-container"></div>
+                        </button>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="profile">
+                      <table class="table table-hover">
+                        <tbody>
+                        @isset($tickets)
+                         @foreach($tickets as $witing)
+                          @if($witing['role'] == 5)
+                         <tr>
+                            <td class="mytdwiting" data-id="{{ $witing['id'] }}" data-title="{{ $witing['title'] }}" data-desc1="{{ $witing['desc1'] }}" data-user="{{ $witing['user_id'] }}">
+                              <p style="margin:0"><a href="#">{{ $witing['title'] }}</a></p>
+                              <p style="margin:0">{{ $witing['desc1']}}</p>
+                              <p style="margin:0">{{ $witing['creator_name'] }}</p>
+                            </td>
+                            <td class="pull-right">
+                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">highlight_off</i>{{ $witing['date'] }}</p>
+                              <?php if($witing['priority'] == 'Medium') { ?>
+                              <p style="margin:0; color:blue" class="form-inline pull-right"><i class="material-icons" style="color:#1E90FF; font-size:16px;margin-right: 4px">lens</i>{{ $witing['priority'] }}</p><br>
+                              <?php }else if($witing['priority'] == 'Hard') { ?>
+                                <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:#FF4500; font-size:16px;margin-right: 4px">lens</i>{{ $witing['priority'] }}</p><br>
+                              <?php }else if($witing['priority'] == 'Easy') { ?>
+                                <p style="margin:0; color:green" class="form-inline pull-right"><i class="material-icons" style="color:#3CB371; font-size:16px;margin-right: 4px">lens</i>{{ $witing['priority'] }}</p><br>
+                              <?php } ?>
+
+                              <p style="margin:0;cursor:pointer" class="pull-right done form-inline">
+                              {{ $witing['created_at']->format('Y-m-d')}}
+                              </p>
+                            
+                            </td>
+                          </tr>
+                            @endif
+                          @endforeach
+                         @endisset
+                       
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
               </div>
           </div>
+          <div id="closed" class="container tab-pane fade">
+            <div class="card">
+                <div class="card-header card-header-tabs card-header-primary">
+                  <div class="nav-tabs-navigation">
+                    <div class="nav-tabs-wrapper">
+                    <form class="navbar-form">
+                      <div class="input-group no-border">
+                        <input type="text" value="" class="form-control" placeholder="Search...">
+                        <button type="submit" class="btn btn-white btn-round btn-just-icon">
+                          <i class="material-icons">search</i>
+                          <div class="ripple-container"></div>
+                        </button>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="tab-content">
+                    <div class="tab-pane active" id="profile">
+                      <table class="table table-hover">
+                        <tbody>
+                        @isset($tickets)
+                          @foreach($tickets as $done)
+                            @if($done['role'] == 6)
+                        <tr>
+                            <td class="mytdone" data-id="{{ $done['id'] }}" data-title="{{ $done['title'] }}" data-desc1="{{ $done['desc1'] }}" data-user="{{ $done['user_id'] }}">
+                              <p style="margin:0"><a href="#">{{ $done['title'] }}</a></p>
+                              <p style="margin:0">{{ $done['desc1']}}</p>
+                              <p style="margin:0">{{ $done['creator_name'] }}</p>
+                            </td>
+                            <td class="pull-right">
+                            @if($done['role'] == 6)
+                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:green; font-size:16px;margin-right: 4px">check_circle</i>{{ $witing['date'] }}</p>
+                              @elseif($done['role'] == 4)
+                              <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">highlight_off</i>{{ $witing['date'] }}</p>
+                              @endif 
+                              <?php if($done['priority'] == 'Medium') { ?>
+                              <p style="margin:0; color:blue" class="form-inline pull-right"><i class="material-icons" style="color:#1E90FF; font-size:16px;margin-right: 4px">lens</i>{{ $done['priority'] }}</p><br>
+                              <?php }else if($done['priority'] == 'Hard') { ?>
+                                <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:#FF4500; font-size:16px;margin-right: 4px">lens</i>{{ $done['priority'] }}</p><br>
+                              <?php }else if($done['priority'] == 'Easy') { ?>
+                                <p style="margin:0; color:green" class="form-inline pull-right"><i class="material-icons" style="color:#3CB371; font-size:16px;margin-right: 4px">lens</i>{{ $done['priority'] }}</p><br>
+                              <?php } ?>
+
+                              <p style="margin:0;cursor:pointer" class="pull-right done form-inline">
+                               {{ $done['created_at']->format('Y-m-d') }}
+                              </p>
+                         
+                            
+                            </td>
+                          </tr>
+                            @endif
+                          @endforeach
+                        @endisset
+                        </tbody>
+                      </table>
+                    </div>
+                 
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+            </div>
+        
             <div class="col-sm-8">
               <div class="card">
                 <div class="card-header card-header-primary">
@@ -408,3 +541,4 @@
 
 
 @endsection
+       

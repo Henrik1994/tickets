@@ -289,7 +289,7 @@
                               <?php } ?>
 
                               <p style="margin:0;cursor:pointer" class="pull-right done form-inline">
-                               2018-06-27
+                              {{ $done['created_at']->format('Y-m-d') }}
                               </p>
                          
                             

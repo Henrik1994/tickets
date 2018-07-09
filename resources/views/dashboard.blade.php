@@ -70,15 +70,22 @@
                   <div class="card-icon">
                     <i class="material-icons">content_copy</i>
                   </div>
-                  <p class="card-category">Used Space</p>
-                  <h3 class="card-title">49/50
-                    <small>GB</small>
+                  <p class="card-category">Create / Done</p>
+                  <span></span>
+  
+                  @isset($dones)
+                  <h3 class="card-title" style="padding-right: 10%">{{ count($dones) }}   / <?php if(isset($doit)){
+                    echo count($doit); } ?> 
+                  @endisset 
+              
                   </h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
                     <i class="material-icons text-danger">warning</i>
-                    <a href="#pablo">Get More Space...</a>
+                    @isset($cant)
+                    <a href="#pablo">My create task but dont done <span style="font-size: 20px;"> {{ count($cant) }} <span></a>
+                    @endisset
                   </div>
                 </div>
               </div>
@@ -89,12 +96,14 @@
                   <div class="card-icon">
                     <i class="material-icons">store</i>
                   </div>
-                  <p class="card-category">Revenue</p>
-                  <h3 class="card-title">$34,245</h3>
+                  <p class="card-category">All / Worked</p>
+                  @isset($tickets)
+                  <h3 class="card-title">{{ count($tickets) }} / <?php if(isset($arac)){ echo count($arac);} ?></h3>
+                  @endisset
                 </div>
                 <div class="card-footer">
-                  <div class="stats">
-                    <i class="material-icons">date_range</i> Last 24 Hours
+                  <div class="stats" style="color:red">
+                     My charac gorcery <?php if(isset($charac)){ echo count($charac);} ?>
                   </div>
                 </div>
               </div>
@@ -173,36 +182,12 @@
       </div>
       <footer class="footer">
         <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.creative-tim.com">
-                  Creative Tim
-                </a>
-              </li>
-              <li>
-                <a href="https://creative-tim.com/presentation">
-                  About Us
-                </a>
-              </li>
-              <li>
-                <a href="http://blog.creative-tim.com">
-                  Blog
-                </a>
-              </li>
-              <li>
-                <a href="https://www.creative-tim.com/license">
-                  Licenses
-                </a>
-              </li>
-            </ul>
-          </nav>
+     
           <div class="copyright float-right">
             &copy;
             <script>
               document.write(new Date().getFullYear())
-            </script>, made with <i class="material-icons">favorite</i> by
-            <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> for a better web.
+            </script>, made with <i class="material-icons">favorite</i> 
           </div>
         </div>
       </footer>

@@ -17,6 +17,11 @@ class Ticket extends Model
        return $this->belongsTo('App\User','user_id','id');
    }
 
+   public function creator()
+   {
+       return $this->belongsTo('App\User','creator_id','id');
+   }
+
    public function comment()
    {
        return $this->hasMany('App\Comment','ticket_id','id');
