@@ -14,7 +14,7 @@ class InboxController extends Controller
     {
         $auth = Auth::user();
       
-        $all_tickets = Ticket::all();
+        $all_tickets = Ticket::orderBy('id','desc')->get();
 
         foreach($all_tickets as $ticket){
             $cat = explode(',', $ticket['user_id']);

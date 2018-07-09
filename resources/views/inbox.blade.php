@@ -117,7 +117,7 @@
                             @if($ticket['role'] == 1)
                           <tr>
                             <td class="mytd" data-id="{{ $ticket['id'] }}" data-title="{{ $ticket['title'] }}" data-desc1="{{ $ticket['desc1'] }}" data-user="{{ $ticket['user_id'] }}">
-                              <p style="margin:0"><a href="#">{{ $ticket['title'] }}</a></p>
+                              <p style="margin:0"><a href="#">{{ $ticket['title']   }}</a></p>
                               <p style="margin:0">{{ $ticket['desc1']}}</p>
                               <p style="margin:0">{{ $ticket['creator_name'] }}</p>
                             </td>
