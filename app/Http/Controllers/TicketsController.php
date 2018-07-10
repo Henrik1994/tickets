@@ -100,6 +100,7 @@ class TicketsController extends Controller
     {
         $creator_id = \Auth::user()->id;
         $creator_name = \Auth::user()->name;
+        $email = \Auth::user()->email;
 
         
         if(isset($request['file'])){
@@ -125,6 +126,10 @@ class TicketsController extends Controller
             $ticket->desc2 = $request['desc2'];
             $ticket->file =  $filename ;
             $ticket->save();
+
+
+
+          
         
 
 

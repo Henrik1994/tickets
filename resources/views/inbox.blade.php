@@ -107,7 +107,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height:550px;overflow: auto">
                   <div class="tab-content">
                     <div class="tab-pane active" id="profile">
                       <table class="table table-hover">
@@ -117,8 +117,8 @@
                             @if($ticket['role'] == 1)
                           <tr>
                             <td class="mytd" data-id="{{ $ticket['id'] }}" data-title="{{ $ticket['title'] }}" data-desc1="{{ $ticket['desc1'] }}" data-user="{{ $ticket['user_id'] }}">
-                              <p style="margin:0"><a href="#">{{ $ticket['title']   }}</a></p>
-                              <p style="margin:0">{{ $ticket['desc1']}}</p>
+                              <p style="margin:0"><a href="#">{{ (strlen($ticket['title']) < 15 )? $ticket['title'] : substr($ticket['title'],0,15).'..'   }}</a></p>
+                              <p style="margin:0">{{ (strlen($ticket['desc1']) < 15 )? $ticket['desc1'] : substr($ticket['desc1'],0,15).'..'  }}</p>
                               <p style="margin:0">{{ $ticket['creator_name'] }}</p>
                             </td>
                             <td class="pull-right">
@@ -187,7 +187,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height:550px;overflow: auto">
                   <div class="tab-content">
                     <div class="tab-pane active" id="profile">
                       <table class="table table-hover">
@@ -197,8 +197,8 @@
                           @if($witing['role'] == 3)
                          <tr>
                             <td class="mytdwiting" data-id="{{ $witing['id'] }}" data-title="{{ $witing['title'] }}" data-desc1="{{ $witing['desc1'] }}" data-user="{{ $witing['user_id'] }}">
-                              <p style="margin:0"><a href="#">{{ $witing['title'] }}</a></p>
-                              <p style="margin:0">{{ $witing['desc1']}}</p>
+                              <p style="margin:0"><a href="#">{{ (strlen($witing['title']) < 15 )? $witing['title'] : substr($witing['title'],0,15).'..'  }}</a></p>
+                              <p style="margin:0">{{ (strlen($witing['desc1']) < 15 )? $witing['desc1'] : substr($witing['desc1'],0,15).'..'  }}</p>
                               <p style="margin:0">{{ $witing['creator_name'] }}</p>
                             </td>
                             <td class="pull-right">
@@ -260,7 +260,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height:550px;overflow: auto">
                   <div class="tab-content">
                     <div class="tab-pane active" id="profile">
                       <table class="table table-hover">
@@ -270,8 +270,8 @@
                             @if($done['role'] == 2 || $done['role'] == 4)
                         <tr>
                             <td class="mytdone" data-id="{{ $done['id'] }}" data-title="{{ $done['title'] }}" data-desc1="{{ $done['desc1'] }}" data-user="{{ $done['user_id'] }}">
-                              <p style="margin:0"><a href="#">{{ $done['title'] }}</a></p>
-                              <p style="margin:0">{{ $done['desc1']}}</p>
+                              <p style="margin:0"><a href="#">{{ (strlen($done['title']) < 15 )? $done['title'] : substr($done['title'],0,15).'..'  }}</a></p>
+                              <p style="margin:0">{{ (strlen($done['desc1']) < 15 )? $done['desc1'] : substr($done['desc1'],0,15).'..'  }}</p>
                               <p style="margin:0">{{ $done['creator_name'] }}</p>
                             </td>
                             <td class="pull-right">
@@ -323,7 +323,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="card-body">
+                <div class="card-body" style="height:550px;overflow: auto">
                   <div class="tab-content">
                     <div class="tab-pane active" id="profile">
                       <table class="table table-hover">
@@ -333,8 +333,8 @@
                             @if($closed['role'] == 6 || $closed['role'] == 5 )
                           <tr>
                             <td class="mytdclosed" data-id="{{ $closed['id'] }}" data-title="{{ $closed['title'] }}" data-desc1="{{ $closed['desc1'] }}" data-user="{{ $closed['user_id'] }}">
-                              <p style="margin:0"><a href="#">{{ $closed['title'] }}</a></p>
-                              <p style="margin:0">{{ $closed['desc1']}}</p>
+                              <p style="margin:0"><a href="#">{{ (strlen($closed['title']) < 15 )? $closed['title'] : substr($closed['title'],0,15).'..'  }}</a></p>
+                              <p style="margin:0">{{ (strlen($closed['desc1']) < 15 )? $closed['desc1'] : substr($closed['desc1'],0,15).'..'  }}</p>
                               <p style="margin:0">{{ $closed['creator_name'] }}</p>
                             </td>
                             <td class="pull-right">
