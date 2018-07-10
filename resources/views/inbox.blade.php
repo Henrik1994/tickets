@@ -2,6 +2,7 @@
   @section('content')
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <div class="wrapper ">
+  {{ $bodyMessage }}
    
     <div class="main-panel">
       <!-- Navbar -->

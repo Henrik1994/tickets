@@ -38,6 +38,7 @@ class DashboardController extends Controller
                 }
             }
         }
+        if(isset($tickets)){
             foreach($tickets as $t){
                 if($t['role'] == 6){
                     $arac[] = $t;
@@ -46,6 +47,8 @@ class DashboardController extends Controller
                     $charac[] = $t;
                 }
             }
+        }
+           
 
         return view('dashboard', compact('user','tickets','myticket','dones','doit','cant','arac','charac'));
     }

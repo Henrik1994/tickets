@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Ticket;
 use Auth;
+use Mail;
 
 class TicketsController extends Controller
 {
@@ -125,12 +126,27 @@ class TicketsController extends Controller
             $ticket->desc1 = $request['desc1'];
             $ticket->desc2 = $request['desc2'];
             $ticket->file =  $filename ;
-            $ticket->save();
+            // $ticket->save();
 
 
+            $user_id = $request['user_id'];
+            $users = explode(',',$user_id);
+                
+                foreach($users as $user){
+                    $get = User::find($user); 
 
-          
+                    $data = [
+                        'email' => $email,
+                        'subject' => $request['title'],
+                        'bodyMessage' => $request['desc1'],
+                        'user' => $get['email']
+                    ];
         
+                    Mail::send('inbox', $data, function($message) use($data){
+                        $message->to($data['email'])->subject($data['subject']);
+                        $message->from($data['user']);
+                    });
+                }
 
 
 
