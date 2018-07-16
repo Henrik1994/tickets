@@ -38,14 +38,17 @@ class DashboardController extends Controller
                 }
             }
         }
-            foreach($tickets as $t){
-                if($t['role'] == 6){
-                    $arac[] = $t;
-                }
-                if($t['role'] == 5){
-                    $charac[] = $t;
+            if(isset($tickets)){
+                foreach($tickets as $t){
+                    if($t['role'] == 6){
+                        $arac[] = $t;
+                    }
+                    if($t['role'] == 5){
+                        $charac[] = $t;
+                    }
                 }
             }
+       
 
         return view('dashboard', compact('user','tickets','myticket','dones','doit','cant','arac','charac'));
     }
