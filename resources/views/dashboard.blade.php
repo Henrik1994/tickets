@@ -61,6 +61,9 @@
         </div>
       </nav>
       <!-- End Navbar -->
+
+  
+
       <div class="content">
         <div class="container-fluid">
           <div class="row">
@@ -108,6 +111,7 @@
                 </div>
               </div>
             </div>
+            
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header card-header-danger card-header-icon">
@@ -177,6 +181,38 @@
             </div>
            
           </div>
+          <button trpe="button" onclick="notifset()" value="Notification" >notify </button>
+
+
+      <script>
+
+function notifme(){
+  var notification = new Notification("hly ashxatum es", {
+    tag: "ache-mail",
+    body: "heriqa hel gna tun",
+    icon: "https://itproger.com/img/notify.png"
+  });
+}
+
+  function notifset(){
+    if(!('Notification' in window)){
+      alert('Browser not working with this notification');
+    }else if(Notification.permission === "granted"){
+      setTimeout(notifme, 2000);
+    }else if(Notification.permission !== "denied"){
+      Notification.requestPermission (function (permission){
+        if(!('permission' in  Notification)){
+          Notification.permission = permission;
+          if(permission === "granted" ){
+            setTimeout(notifme, 2000);
+          }
+        }
+      })
+    }
+
+  }
+
+</script>
          
         </div>
       </div>
