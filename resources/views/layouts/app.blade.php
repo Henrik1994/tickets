@@ -21,6 +21,7 @@
   src="https://code.jquery.com/jquery-3.3.1.js"
   integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
   crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -32,35 +33,35 @@
    </a>
  </div>
  <div class="sidebar-wrapper">
-   <ul class="nav">
-     <li class="nav-item active  ">
-       <a class="nav-link" href="{{ url('/')}}">
+   <ul class="nav" >
+     <li class="nav-item  " id='dashboard'>
+       <a class="nav-link " href="{{ url('/')}}">
          <i class="material-icons">dashboard</i>
          <p>Dashboard</p>
        </a>
      </li>
   
-     <li class="nav-item ">
-       <a class="nav-link" href="{{ url('/tickets')}}">
+     <li class="nav-item" id='tickets'>
+       <a class="nav-link  "  href="{{ url('/tickets')}}">
          <i class="material-icons">content_paste</i>
          <p>Add Tickets</p>
        </a>
      </li>
-     <li class="nav-item ">
-       <a class="nav-link" href="{{ url('/inbox')}}">
+     <li class="nav-item " id='inbox'>
+       <a class="nav-link inbox" href="{{ url('/inbox')}}">
          <i class="material-icons">library_books</i>
          <p>Inbox</p>
        </a>
      </li>
-     <li class="nav-item ">
+     <li class="nav-item " id='sent'>
        <a class="nav-link" href="{{ url('/sent')}}">
          <i class="material-icons">bubble_chart</i>
          <p>Sent</p>
        </a>
      </li>
 
-     <li class="nav-item ">
-       <a class="nav-link" href="{{ url('/profile')}}">
+     <li class="nav-item " id='profile'>
+       <a class="nav-link profile" href="{{ url('/profile')}}">
          <i class="material-icons">person</i>
          <p>User Profile</p>
        </a>
@@ -72,6 +73,20 @@
 </div>
     @yield('content')
       <!--   Core JS Files   -->
+
+          <script>
+                    var newPage;
+                     var currentState = '<?php echo $_SERVER["REQUEST_URI"]; ?>';
+                     if(currentState == '/') {
+                      currentState = 'dashboard'
+                      newPage = '#'+currentState;
+                      $(newPage).addClass("active");
+                     } else {
+                       newPage = '#'+currentState.substr(1);
+                       $(newPage).addClass("active");
+                     }
+
+        </script>   
   <script src="{{asset('/js/core/jquery.min.js ')}}" type="text/javascript"></script>
   <script src="{{asset('/js/core/popper.min.js ')}}" type="text/javascript"></script>
   <script src="{{asset('/js/core/bootstrap-material-design.min.js ')}}" type="text/javascript"></script>
@@ -92,5 +107,8 @@
 
     });
   </script>
+
+   
+        
 </body>
 </html>

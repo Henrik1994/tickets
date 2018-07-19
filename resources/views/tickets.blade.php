@@ -271,9 +271,9 @@
                     <div class="form-group" style="margin:0">
                     <label class="bmd-label-floating"></label>
                       <select class="form-control" name="priority">
-                          <option>Hard</option>
-                          <option>Medium</option>
-                          <option>Easy</option>
+                          <option>Bolt</option>
+                          <option>Bicycle</option> 
+                          <option>Turtle</option>
                       </select>
                     </div>
                   </div>

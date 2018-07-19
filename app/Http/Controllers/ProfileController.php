@@ -34,7 +34,7 @@ class ProfileController extends Controller
 
     public function addProfile(Request $request)
     {
-        if(isset($request['file'])){
+        if(isset($request['image'])){
             $destinationPath = 'img';
             $file = $request->file('image');
             $file->move($destinationPath, $file->getClientOriginalName());

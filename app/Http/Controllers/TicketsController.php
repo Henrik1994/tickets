@@ -128,25 +128,6 @@ class TicketsController extends Controller
             $ticket->save();
 
 
-        $data = [
-            'email' => $email,
-            'subject' => $request['title'],
-            'bodyMessage' => $request['desc1']
-        ];
-
-        $users_id = $request['user_id'];
-            $users = explode(',', $users_id);
-            foreach($users as $user){
-              $get = User::find($user);
-              Mail::send('inbox', ['data' => $data, 'get' => $get], function($message) use ($data, $get){
-                $message->to($data['email']);
-                $message->subject($data['subject']);
-                $message->from('henrik-gevorgyan@mail.ru');
-                
-               });
-            }
-
-
         return redirect('/inbox');
 
     }
