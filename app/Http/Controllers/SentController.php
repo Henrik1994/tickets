@@ -12,6 +12,7 @@ class SentController extends Controller
     {
       $auth = Auth::user();
       $tickets = Ticket::with('user')->where('creator_id',$auth->id)->orderBy('id','desc')->get();
+      
 
       $all_tickets = Ticket::all();
 
@@ -31,4 +32,25 @@ class SentController extends Controller
 
         return view('sent', compact('tickets','mytickets','donetickets'));
     }   
+
+
+    public function getpush()
+    {
+        $auth = Auth::user();
+        $tickets = Ticket::with('user')->where('creator_id',$auth->id)->orderBy('id','desc')->get();
+
+   
+        foreach($tickets as $ticket){
+            if($ticket['role'] == 2){
+                $myticket[] = $ticket; 
+                $response = [
+                    'pusher' => $myticket
+                ];
+            }
+        }
+
+
+        return response()->json($response);
+
+    }
 }

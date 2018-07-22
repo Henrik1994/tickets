@@ -201,4 +201,28 @@ class InboxController extends Controller
         return response()->json($response); 
      
     }
+
+    public function getpush()
+    {
+        $auth = Auth::user();
+      
+        $all_tickets = Ticket::orderBy('id','desc')->get();
+        if(isset($all_tickets)){
+            foreach($all_tickets as $ticket){
+                $cat = explode(',', $ticket['user_id']);
+                for($i = 0; $i < count($cat); $i++){
+                    if($cat[$i] == $auth->id && $ticket['role'] == 6 ){
+                      $tickets[] = $ticket;  
+                        $response = [
+                            'pusher' => $tickets
+                        ];
+                    }
+                }
+            }
+        }
+  
+     
+
+        return response()->json($response); 
+    }
 }

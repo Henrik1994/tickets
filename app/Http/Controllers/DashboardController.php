@@ -52,4 +52,28 @@ class DashboardController extends Controller
 
         return view('dashboard', compact('user','tickets','myticket','dones','doit','cant','arac','charac'));
     }
+
+
+    public function getpush()
+    {
+        $all_tickets = Ticket::all();
+        $auth = Auth::user();
+
+       if(isset($all_tickets)){
+        foreach($all_tickets as $ticket){
+            $cat = explode(',', $ticket['user_id']);      
+            for($i = 0; $i < count($cat); $i++){
+                if($cat[$i] == $auth->id && $ticket['role'] == 1 ){
+                  $tickets[] = $ticket;
+                    $response = [
+                        'pusher' => $tickets
+                    ];
+                }
+            }
+        }
+       }
+     
+
+        return response()->json($response); 
+    }
 }

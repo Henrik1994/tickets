@@ -13,6 +13,7 @@
 
 Route::group([ 'middleware' => 'auth'], function () {
     Route::get('/', "DashboardController@index");
+    Route::get('/getpush', "DashboardController@getpush");
 
 
     Route::get('/tickets', "TicketsController@index");
@@ -29,10 +30,12 @@ Route::group([ 'middleware' => 'auth'], function () {
     Route::post('/end', "InboxController@end");
     Route::post('/cant', "InboxController@cant");
     Route::get('/getcomment', "InboxController@getcomment");
+    Route::get('/getmypushdone', "InboxController@getpush");
 
 
 
     Route::get('/sent', "SentController@index");
+    Route::get('/getmypush', "SentController@getpush");
 
 
     Route::get('/profile', "ProfileController@index");

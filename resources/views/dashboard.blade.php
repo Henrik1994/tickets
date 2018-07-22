@@ -2,6 +2,8 @@
   @section('content')
   <div class="wrapper ">
     <div class="main-panel">
+    <script src="{{ asset('/push/push.min.js')}}"></script>
+    <script src="{{ asset('/push/serviceWorker.min.js')}}"></script>
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
@@ -175,8 +177,10 @@
                 </div>
               </div>
             </div>
+ 
            
           </div>
+ 
          
         </div>
       </div>
@@ -193,5 +197,34 @@
       </footer>
     </div>
   </div>
+  <script>
+                $.ajax({
+                    /* the route pointing to the post function */
+                    url: '/getpush',
+                    type: 'GET',
+                    headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                    /* send the csrf-token and the input to the controller */
+                    data: "",
+                    dataType: 'JSON',
+                    /* remind that 'data' is the response of the AjaxController */
+                    success: function (response) {
+                      var pusher = response.pusher;
+                      for(var i = 0; i < pusher.length; i++){
+                        Push.create(pusher[i].title, {
+                        body: pusher[i].desc1,
+                        icon: '/img/new_logo.png',
+                        timeout: 10000,
+                        onClick: function () {
+                            window.focus();
+                            this.close();
+                        }
+                    });
+                      }
+                    }
+                    
+                }); 
+                </script>
 
 @endsection

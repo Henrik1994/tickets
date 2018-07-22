@@ -2,6 +2,8 @@
   @section('content')
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <div class="wrapper ">
+  <script src="{{ asset('/push/push.min.js')}}"></script>
+  <script src="{{ asset('/push/serviceWorker.min.js')}}"></script>
    
     <div class="main-panel">
       <!-- Navbar -->
@@ -396,6 +398,35 @@
                           $('.mycard').append('<div class="card text-white bg-secondary mb-3" style="max-width: 18rem;"><div class="card-body"><p class="card-text" style="font-size:15px" >' + comments[i].comment + '</p></div><hr style="margin:0"><div class="card-footer" style="margin-bottom: 0;padding-top: 0;"><p class="text-left" id="myname" >' +comments[i].user_id +'</p><p class="text-right" id="mydate">' + comments[i].created_at +'</p></div></div>');
                         }
                         $("#sdf").scrollTop($("#sdf")[0].scrollHeight); 
+                    }
+                });
+
+                      $.ajax({
+                    /* the route pointing to the post function */
+                    url: '/getmypush',
+                    type: 'GET',
+                    headers: {
+                          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                    /* send the csrf-token and the input to the controller */
+                    data: '',
+                    dataType: 'JSON',
+                    /* remind that 'data' is the response of the AjaxController */
+                    success: function (response) { 
+                      console.log(response.pusher);
+                      var pusher = response.pusher;
+                      for(var i = 0; i < pusher.length; i++){
+                        Push.create(pusher[i].title, {
+                        body: pusher[i].desc1,
+                        icon: '/img/new_logo.png',
+                        timeout: 10000,
+                        onClick: function () {
+                            window.focus();
+                            this.close();
+                        }
+                    });
+                      }
+
                     }
                 });
 
