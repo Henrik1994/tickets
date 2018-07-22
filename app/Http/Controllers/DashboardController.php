@@ -38,6 +38,7 @@ class DashboardController extends Controller
                 }
             }
         }
+
         if(isset($tickets)){
             foreach($tickets as $t){
                 if($t['role'] == 6){
@@ -49,6 +50,7 @@ class DashboardController extends Controller
             }
         }
            
+
 
         return view('dashboard', compact('user','tickets','myticket','dones','doit','cant','arac','charac'));
     }

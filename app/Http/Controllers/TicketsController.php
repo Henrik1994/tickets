@@ -20,7 +20,6 @@ class TicketsController extends Controller
 
         foreach($all_tickets as $ticket){
             $cat = explode(',', $ticket['user_id']);
-          
             for($i = 0; $i < count($cat); $i++){
                 if($cat[$i] == $auth->id){
                   $tickets[] = $ticket; 
@@ -127,26 +126,6 @@ class TicketsController extends Controller
             $ticket->desc2 = $request['desc2'];
             $ticket->file =  $filename ;
             $ticket->save();
-
-
-            // $user_id = $request['user_id'];
-            // $users = explode(',',$user_id);
-                
-            //     foreach($users as $user){
-            //         $get = User::find($user); 
-
-            //         $data = [
-            //             'email' => $email,
-            //             'subject' => $request['title'],
-            //             'bodyMessage' => $request['desc1'],
-            //             'user' => $get['email']
-            //         ];
-        
-            //         Mail::send('inbox', $data, function($message) use($data){
-            //             $message->to($data['email'])->subject($data['subject']);
-            //             $message->from($data['user']);
-            //         });
-            //     }
 
 
 

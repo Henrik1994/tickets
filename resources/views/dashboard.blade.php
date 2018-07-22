@@ -63,6 +63,9 @@
         </div>
       </nav>
       <!-- End Navbar -->
+
+  
+
       <div class="content">
         <div class="container-fluid">
           <div class="row">
@@ -110,6 +113,7 @@
                 </div>
               </div>
             </div>
+            
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="card card-stats">
                 <div class="card-header card-header-danger card-header-icon">
@@ -180,7 +184,7 @@
  
            
           </div>
- 
+
          
         </div>
       </div>

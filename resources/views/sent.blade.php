@@ -131,11 +131,11 @@
                                  <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">highlight_off</i>{{ $sent['date'] }}</p>
                              @endif
 
-                               @if($sent['priority'] == 'Medium') 
+                               @if($sent['priority'] == 'Bicycle') 
                                 <p style="margin:0; color:blue" class="form-inline pull-right"><i class="material-icons" style="color:#1E90FF; font-size:16px;margin-right: 4px">lens</i>{{ $sent['priority'] }}</p><br>
-                              @elseif($sent['priority'] == 'Hard')
+                              @elseif($sent['priority'] == 'Bolt')
                                 <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:#FF4500; font-size:16px;margin-right: 4px">lens</i>{{ $sent['priority'] }}</p><br>
-                              @elseif($sent['priority'] == 'Easy') 
+                              @elseif($sent['priority'] == 'Turtle') 
                                 <p style="margin:0; color:green" class="form-inline pull-right"><i class="material-icons" style="color:#3CB371; font-size:16px;margin-right: 4px">lens</i>{{ $sent['priority'] }}</p><br>
                               @endif
 
@@ -218,11 +218,11 @@
                             </td>
                             <td class="pull-right">
                               <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">highlight_off</i>{{ $witing['date'] }}</p>
-                              <?php if($witing['priority'] == 'Medium') { ?>
+                              <?php if($witing['priority'] == 'Bicycle') { ?>
                               <p style="margin:0; color:blue" class="form-inline pull-right"><i class="material-icons" style="color:#1E90FF; font-size:16px;margin-right: 4px">lens</i>{{ $witing['priority'] }}</p><br>
-                              <?php }else if($witing['priority'] == 'Hard') { ?>
+                              <?php }else if($witing['priority'] == 'Bolt') { ?>
                                 <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:#FF4500; font-size:16px;margin-right: 4px">lens</i>{{ $witing['priority'] }}</p><br>
-                              <?php }else if($witing['priority'] == 'Easy') { ?>
+                              <?php }else if($witing['priority'] == 'Turtle') { ?>
                                 <p style="margin:0; color:green" class="form-inline pull-right"><i class="material-icons" style="color:#3CB371; font-size:16px;margin-right: 4px">lens</i>{{ $witing['priority'] }}</p><br>
                               <?php } ?>
 
@@ -280,11 +280,11 @@
                               @elseif($done['role'] == 4)
                               <p style="margin:0" class="form-inline"><i class="material-icons" style="color:red; font-size:16px;margin-right: 4px">highlight_off</i>{{ $witing['date'] }}</p>
                               @endif 
-                              <?php if($done['priority'] == 'Medium') { ?>
+                              <?php if($done['priority'] == 'Bicycle') { ?>
                               <p style="margin:0; color:blue" class="form-inline pull-right"><i class="material-icons" style="color:#1E90FF; font-size:16px;margin-right: 4px">lens</i>{{ $done['priority'] }}</p><br>
-                              <?php }else if($done['priority'] == 'Hard') { ?>
+                              <?php }else if($done['priority'] == 'Bolt') { ?>
                                 <p style="margin:0; color:red" class="form-inline pull-right"><i class="material-icons" style="color:#FF4500; font-size:16px;margin-right: 4px">lens</i>{{ $done['priority'] }}</p><br>
-                              <?php }else if($done['priority'] == 'Easy') { ?>
+                              <?php }else if($done['priority'] == 'Turtle') { ?>
                                 <p style="margin:0; color:green" class="form-inline pull-right"><i class="material-icons" style="color:#3CB371; font-size:16px;margin-right: 4px">lens</i>{{ $done['priority'] }}</p><br>
                               <?php } ?>
 
@@ -390,10 +390,8 @@
                     dataType: 'JSON',
                     /* remind that 'data' is the response of the AjaxController */
                     success: function (response) { 
-                      console.log(response.comment.comment);
-                      console.log(response);
                       $('.mycard').empty();
-                      var comments = response.comment.comment;
+                      var comments = response.comments.comment;
                         for(i = 0; i < comments.length; i++){
                           $('.mycard').append('<div class="card text-white bg-secondary mb-3" style="max-width: 18rem;"><div class="card-body"><p class="card-text" style="font-size:15px" >' + comments[i].comment + '</p></div><hr style="margin:0"><div class="card-footer" style="margin-bottom: 0;padding-top: 0;"><p class="text-left" id="myname" >' +comments[i].user_id +'</p><p class="text-right" id="mydate">' + comments[i].created_at +'</p></div></div>');
                         }
